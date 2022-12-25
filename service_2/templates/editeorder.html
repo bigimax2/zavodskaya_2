@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Редактирование заказа рег.ном  {{ model.reg_num }}{% endblock title %}
+{% block content %}
+   <form method="POST" novalidate action="">
+    {% csrf_token %}
+        <table>
+        {{ form }}
+        </table>
+        <input type="submit" name="submit" value="Обновить">
+   </form>
+{% endblock content %}

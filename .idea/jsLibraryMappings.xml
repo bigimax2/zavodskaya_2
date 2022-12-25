@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$" libraries="{@fortawesome/fontawesome-free, @popperjs/core, all, animate.css, bootstrap, bootstrap-icons, font-awesome, jquery-3.3.1.slim, jquery-3.6.3, popper.js, tether}" />
+    <file url="PROJECT" libraries="{bootstrap, jquery, jquery-3.3.1.slim, jquery-3.6.3, popper.js, tether}" />
+  </component>
+</project>

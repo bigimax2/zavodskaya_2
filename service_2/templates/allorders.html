@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Все заказы{% endblock title %}
+
+{% block content %}
+    <a class="btn btn-success" href="{% url 'neworder' %}">Новый заказ</a>
+{% if all.count > 0 %}
+    <h2>Все заказы</h2>
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Бранд</th>
+        <th>Модель</th>
+        <th>Цвет</th>
+        <th>Рег.ном</th>
+        <th>Контакт</th>
+        <th>Телефон</th>
+        <th>Статус</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for car in all %}
+    <tr>
+        <td>{{ car.brand }}</td>
+        <td>{{ car.model }}</td>
+        <td>{{ car.color }}</td>
+        <td>{{ car.reg_num }}</td>
+        <td>{{ car.order_owner }}</td>
+        <td>{{ car.phone_owner }}</td>
+        <td>{{ car.status }}</td>
+        <td><a href="editeorder/{{ car.id_order }}"><img src="https://img.icons8.com/fluency/38/null/restore-page.png"/></a></td>
+        <td><a href="deleteorder/{{ car.id_order }}"><img src="https://img.icons8.com/fluency/38/null/remove-properties.png"/></a></td>
+        <td><a href="edite_date_order/{{ car.id }}"><img src="https://img.icons8.com/fluency/38/null/edit-file.png"/></a></td>
+        <td>{{ car.time_create }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}
+
+{% endblock content %}
