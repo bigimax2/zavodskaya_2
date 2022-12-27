@@ -14,3 +14,9 @@ class Order(ModelForm):
     class Meta:
         model = Orders
         fields = '__all__'
+
+
+class JobsForm(forms.ModelForm):
+    class Meta:
+        model = Jobs
+        exclude = ['order', ]
