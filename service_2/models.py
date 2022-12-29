@@ -34,8 +34,8 @@ class Jobs(models.Model):
     id_jobs = models.AutoField(primary_key=True, blank=True)
     jobs_comments = models.CharField(max_length=255, null=True, blank=True, verbose_name='Вид работ:')
     jobs_price = models.IntegerField(null=True, blank=True,verbose_name='Цена')
-    file = models.FileField(blank=True, null=True, upload_to='media/file', verbose_name='Поле для вставки файла ')
-    image = models.ImageField(blank=True, null=True, upload_to='media/image', verbose_name='Поле для вставки фото')
+    file = models.FileField(blank=True, null=True, upload_to='media/file', verbose_name='Файл')
+    image = models.ImageField(blank=True, null=True, upload_to='media/image', verbose_name='Фото')
     date_job = models.DateField(auto_now_add=True, null=True, blank=True)
     order = models.ForeignKey(Orders, null=True, on_delete=models.CASCADE)
 
@@ -53,7 +53,7 @@ class Consumers(models.Model):
     consumers_price = models.IntegerField(null=True, blank=True, verbose_name='цена')
     consumers_quantity = models.IntegerField(null=True, blank=True, verbose_name='колл-во.')
     job = models.ForeignKey(Jobs, null=True, on_delete=models.CASCADE, verbose_name='выбрать вид работ')
-    order = models.ForeignKey(Orders, null=True, on_delete=models.CASCADE)
+
 
     class Meta:
         verbose_name = 'Расходники'

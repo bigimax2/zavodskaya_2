@@ -4,5 +4,9 @@
 {% load django_tables2 %}
 
 {% block content %}
-
+    <form method="post" action="">
+    {% csrf_token %}
+{{ consform }}
+    <button class="btn btn-success" type="submit" style=" margin-top: 20px ">Сохранить</button>
+    </form>
 {% endblock content %}

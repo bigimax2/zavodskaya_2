@@ -20,3 +20,9 @@ class JobsForm(forms.ModelForm):
     class Meta:
         model = Jobs
         exclude = ['order', ]
+
+
+class Cons(forms.ModelForm):
+    class Meta:
+        model = Consumers
+        exclude = ['job', 'order']

@@ -1,21 +1,20 @@
 from django.contrib import admin
+from nested_inline.admin import NestedTabularInline, NestedStackedInline, NestedModelAdmin
 
 from .models import *
 
 
-class JobsInLineAdmin(admin.TabularInline):
-    model = Jobs
-
-
-class ConsumersInLine(admin.TabularInline):
+class ConsumersInLine(NestedTabularInline):
     model = Consumers
 
 
-class OrdersAdmin(admin.ModelAdmin):
-    inlines = [
-        JobsInLineAdmin,
-        ConsumersInLine,
-    ]
+class JobsInLine(NestedTabularInline):
+    model = Jobs
+    inlines = [ConsumersInLine]
+
+
+class OrdersAdmin(NestedModelAdmin):
+    inlines = [JobsInLine]
 
 
 admin.site.register(Orders, OrdersAdmin)

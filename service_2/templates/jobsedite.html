@@ -6,7 +6,12 @@
 {% block content %}
 
 
+
 <div class="container">
+    <span style="font-size: x-large;"><b>Редактирование заказа № {{ id_order }} рег.номер {{ joborder }}</b></span>
+    {% for a in context %}
+    <li><strong>{{ a }}</strong></li>
+    {% endfor %}
     <form method="post" action="" enctype="multipart/form-data"> <!-- ОБЯЗАТЕЛЬНО прописать enctype="multipart/form-data", иначе файлы не отправятся в БД-->
     {% csrf_token %}
         <div class="form-row g-3">
