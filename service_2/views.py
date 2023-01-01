@@ -2,8 +2,8 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 
 from service_2.forms import Order, JobsForm, Cons
-from service_2.models import Orders, Jobs
-from service_2.tables import JobTable
+from service_2.models import Orders, Jobs, Consumers
+from service_2.tables import JobTable, ConsumTable
 
 
 def index(request, *args, **kwargs):
@@ -84,15 +84,29 @@ def JobsOrder(request, id_order):
                                               'context': context, 'joborder': joborder})
 
 
-def EditeConsumers(request, id_jobs):
+def EditeConsumers(request, id_jobs, order_id):
+    order = Orders.objects.get(id_order=order_id)
+    job_order = Jobs.objects.get(id_jobs=id_jobs)
+    consum = ConsumTable(Consumers.objects.filter(job_id=id_jobs))
+
+    reg_num = order.reg_num
+    brand = order.brand
+    moel = order.model
+    color = order.color
+    owner = order.order_owner
+    phone = order.phone_owner
+
+    context = [reg_num, brand, moel, color, owner, phone]
+
     consform = Cons
     if request.method == 'POST':
         consform = Cons(request.POST)
         if consform.is_valid():
             post = consform.save(commit=False)
             post.job_id = id_jobs
-            #post.order_id = id_order
+            post.order_id = order_id
             post.save()
-            return redirect('jobsediteconsumers', id_jobs=id_jobs)
+            return redirect('jobsediteconsumers', id_jobs=id_jobs, order_id=order_id)
 
-    return render(request, 'editeconsumers.html', {'consform': consform})
+    return render(request, 'editeconsumers.html', {'consform': consform, 'consum': consum, 'id_jobs': id_jobs,
+                                                   'order_id': order_id, 'job_order': job_order,'context': context })

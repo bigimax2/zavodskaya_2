@@ -1,4 +1,5 @@
 import django_tables2 as tables
+from django_tables2.utils import A
 
 from service_2.models import Orders, Jobs, Consumers
 
@@ -10,16 +11,16 @@ class OrderTable(tables.Table):
 
 
 class JobTable(tables.Table):
-    c_name = tables.TemplateColumn('<a href="{% url "jobsediteconsumers" record.id_jobs %}"{{order_id}}>Добавить</a>', verbose_name='Расходники')
+    cons = tables.LinkColumn("jobsediteconsumers", text="Добавить", args=[A('order_id'), A('id_jobs')], verbose_name='Расходники')
 
     class Meta:
         model = Jobs
         template_name = "django_tables2/bootstrap.html"
-        fields = ('id_jobs','jobs_comments', 'jobs_price', 'file', 'image', 'date_job', 'order_id')
+        fields = ('jobs_comments', 'jobs_price', 'file', 'image', 'date_job')
 
 
-class Consum(tables.Table):
+class ConsumTable(tables.Table):
     class Meta:
         model = Consumers
-        template_name = "django_tables/bootstrap.html"
+        template_name = "django_tables2/bootstrap.html"
         fields = ('consumers_name', 'consumers_price', 'consumers_quantity')

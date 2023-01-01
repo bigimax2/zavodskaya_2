@@ -10,5 +10,5 @@ urlpatterns = [
             path('allorders/editeorder/<int:id_order>/', views.EditeOrder, name='editeorder'),
             path('allorders/deleteorder/<int:id_order>/', views.DeleteOrder, name='deleteorder'),
             path('allorders/jobsedite/<int:id_order>/', views.JobsOrder, name='jobsedite'),
-            path('allorders/jobsedite/<int:id_jobs>/editeconsumers/', views.EditeConsumers, name='jobsediteconsumers'),
+            path('allorders/jobsedite/<int:order_id>/editeconsumers/<int:id_jobs>/', views.EditeConsumers, name='jobsediteconsumers'),
 ]

@@ -53,7 +53,7 @@ class Consumers(models.Model):
     consumers_price = models.IntegerField(null=True, blank=True, verbose_name='цена')
     consumers_quantity = models.IntegerField(null=True, blank=True, verbose_name='колл-во.')
     job = models.ForeignKey(Jobs, null=True, on_delete=models.CASCADE, verbose_name='выбрать вид работ')
-
+    order = models.ForeignKey(Orders, null=True, on_delete=models.CASCADE, verbose_name='')
 
     class Meta:
         verbose_name = 'Расходники'
