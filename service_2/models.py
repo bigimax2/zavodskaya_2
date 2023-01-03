@@ -27,7 +27,7 @@ class Orders(models.Model):
         return str(self.reg_num)
 
     def get_absolute_url(self):
-        return reverse('allorders')
+        return reverse('jobsedite', kwargs={'id_order': self.id_order})
 
 
 class Jobs(models.Model):

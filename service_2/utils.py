@@ -1,4 +1,4 @@
-from service_2.models import Orders, Jobs, Consumers
+from service_2.models import Jobs, Consumers
 
 
 def cost_job(id_order):

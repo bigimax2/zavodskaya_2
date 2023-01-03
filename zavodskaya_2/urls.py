@@ -16,15 +16,19 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+
 from django.urls import path, include
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
+
 from zavodskaya_2 import settings
 from django.views.static import serve as mediaserve
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('service_2/', include('service_2.urls')),
+    path('', RedirectView.as_view(url='/service_2/')),
 
 ]
 

@@ -3,6 +3,7 @@
 
 {% block content %}
     <a class="btn btn-success" style="width: 150px" href="{% url 'neworder' %}">Новый заказ</a>
+    <a class="btn btn-warning" style="width: 150px" href="{% url 'admin:index' %}">Админка</a>
 {% if all.count > 0 %}
     <h2>Все заказы</h2>
     <table class="table table-striped">
