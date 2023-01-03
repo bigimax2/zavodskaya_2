@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from service_2.forms import Order, JobsForm, Cons
 from service_2.models import Orders, Jobs, Consumers
 from service_2.tables import JobTable, ConsumTable
+from service_2.utils import cost_job, cost_cons, cost_cons_in_order, all_cost
 
 
 def index(request, *args, **kwargs):
@@ -55,6 +56,11 @@ def DeleteOrder(request, id_order):
 
 
 def JobsOrder(request, id_order):
+    cost = cost_job(id_order)
+    cost_cons = cost_cons_in_order(id_order)
+    all_price = all_cost(id_order)
+
+
     joborder = Orders.objects.get(id_order=id_order)
     jobs = JobTable(Jobs.objects.filter(order_id=joborder))
 
@@ -68,8 +74,6 @@ def JobsOrder(request, id_order):
     model = joborder.model
     context = [reg_num, color, comments, owner, phone, brand, model]
 
-
-
     jobform = JobsForm
     if request.method == 'POST':
         jobform = JobsForm(request.POST, request.FILES)
@@ -81,10 +85,13 @@ def JobsOrder(request, id_order):
             return redirect('jobsedite', id_order=id_order)
 
     return render(request, 'jobsedite.html', {'jobform': jobform, 'jobs': jobs, 'id_order': id_order,
-                                              'context': context, 'joborder': joborder})
+                                              'context': context, 'joborder': joborder, 'cost': cost,
+                                              'cost_cons': cost_cons, 'all_price': all_price})
 
 
 def EditeConsumers(request, id_jobs, order_id):
+    cost_con = cost_cons(id_jobs)
+
     order = Orders.objects.get(id_order=order_id)
     job_order = Jobs.objects.get(id_jobs=id_jobs)
     consum = ConsumTable(Consumers.objects.filter(job_id=id_jobs))
@@ -109,4 +116,5 @@ def EditeConsumers(request, id_jobs, order_id):
             return redirect('jobsediteconsumers', id_jobs=id_jobs, order_id=order_id)
 
     return render(request, 'editeconsumers.html', {'consform': consform, 'consum': consum, 'id_jobs': id_jobs,
-                                                   'order_id': order_id, 'job_order': job_order,'context': context })
+                                                   'order_id': order_id, 'job_order': job_order, 'context': context,
+                                                   'cost_con': cost_con})

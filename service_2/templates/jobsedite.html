@@ -3,12 +3,10 @@
 {% load crispy_forms_tags %}
 {% load django_tables2 %}
 
+{% block title %}Добавления вида работ к заказу № {{ id_order }}{% endblock title %}
 {% block content %}
-
-
-
 <div class="container">
-    <span style="font-size: x-large;"><b>Редактирование заказа № {{ id_order }} рег.номер {{ joborder }}</b></span>
+    <span style="font-size: x-large;"><b>Добавления вида работ к заказу № {{ id_order }}</b></span>
     {% for a in context %}
     <li><strong>{{ a }}</strong></li>
     {% endfor %}
@@ -32,10 +30,30 @@
         </div>
 
 
-        <button class="btn btn-success" type="submit" style=" margin-top: 20px ">Сохранить</button>
+        <button class="btn btn-success" type="submit" style="margin-top: 20px; width: 150px">Сохранить</button>
     </form>
     <div class="container">
     {% render_table jobs %}
     </div>
 </div>
+    <p><a type="button" class="btn btn-warning btn-sm" style="padding-left: 20px; margin-left: 25px; width: 150px"
+    href="{% url 'allorders' %}">Все заказы</a></p>
+    <div class="container">
+        <table class="table table-bordered border-primary">
+            <tbody>
+                <tr>
+                    <th scope="row" class="table-success">Стоимость работ по данным видам:</th>
+                    <th scope="row" class="table-success">{{ cost }} руб.</th>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-warning">Общая стоимость расходников по заказу:</th>
+                    <th scope="row" class="table-warning">{{ cost_cons }} руб.</th>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-danger">Общая стоимость заказа:</th>
+                    <th scope="row" class="table-danger">{{ all_price }} руб.</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 {% endblock content %}
