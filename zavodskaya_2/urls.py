@@ -27,6 +27,7 @@ from django.views.static import serve as mediaserve
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('service_2/', include('service_2.urls')),
     path('', RedirectView.as_view(url='/service_2/')),
 

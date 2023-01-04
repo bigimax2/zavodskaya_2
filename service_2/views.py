@@ -1,5 +1,7 @@
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 
 from service_2.forms import Order, JobsForm, Cons
 from service_2.models import Orders, Jobs, Consumers
@@ -118,3 +120,21 @@ def EditeConsumers(request, id_jobs, order_id):
     return render(request, 'editeconsumers.html', {'consform': consform, 'consum': consum, 'id_jobs': id_jobs,
                                                    'order_id': order_id, 'job_order': job_order, 'context': context,
                                                    'cost_con': cost_con})
+
+
+# рендерит вход/выход
+class LoginView(TemplateView):
+    template_name = 'registration/login.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        context = {}
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                context['error'] = 'Invalid username or password'
+        return render(request, self.template_name, context)
