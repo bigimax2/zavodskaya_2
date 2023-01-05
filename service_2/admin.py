@@ -1,3 +1,6 @@
+
+# правильная регистрация моделей данного приложения,силами стандартной админки django не возможна, ввиду спецефичных связей между моделями
+
 from django.contrib import admin
 from nested_inline.admin import NestedTabularInline, NestedStackedInline, NestedModelAdmin
 # Библиотека nested_inline не идёт из коробки джанго,почитать тут https://github.com/s-block/django-nested-inline

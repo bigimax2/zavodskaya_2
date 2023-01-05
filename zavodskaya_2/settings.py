@@ -29,17 +29,17 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'nested_inline',
+    'nested_inline',    # библиотека для изменения админки для отображения моделей проекта
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
-    'service_2',
-    'crispy_forms',
-    'django_tables2',
+    'debug_toolbar',        # Необходимые библиотеки для работы приложения
+    'service_2',            # ----------------------------------------------------------------
+    'crispy_forms',         # ----------------------------------------------------------------
+    'django_tables2',       # ----------------------------------------------------------------
 
 
 ]
@@ -120,22 +120,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'                          # Настройка расположения статики
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')   # --------------------------------
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'                  # Настройка для папки media
+MEDIA_URL = '/media/'                            # ----------------
 
-INTERNAL_IPS = [
-    '127.0.0.1',
+INTERNAL_IPS = [                           # Настройка разрешения запросов от сервера с расположенным на нем приложением
+    '127.0.0.1',                           # ----------------------------------------------------------------
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'        # Настройка библиотеки CRISPY на работу с bootstrap4
 
-LOGIN_REDIRECT_URL = 'index'
-LOGOUT_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'index'             # Адрес перенаправления при успешном логине(успешной отработки функции логина)
+LOGOUT_REDIRECT_URL = 'index'            # Адрес перенаправления при срабатывании функции выхода

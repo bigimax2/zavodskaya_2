@@ -8,16 +8,17 @@ from service_2.models import Orders, Jobs, Consumers
 from service_2.tables import JobTable, ConsumTable
 from service_2.utils import cost_job, cost_cons, cost_cons_in_order, all_cost
 
-
+# рендерит шаблон с главной страницей
 def index(request, *args, **kwargs):
     return render(request, 'index.html')
 
 
+# рендерит список всех заказов
 def all_orders(request, *args, **kwargs):
     all = Orders.objects.all()
     return render(request, 'allorders.html', {'all': all})
 
-
+#  рендерит форму нового заказа
 def NewOrder(request):
     if request.method == 'POST':
         form = Order(request.POST)
@@ -32,6 +33,7 @@ def NewOrder(request):
     return render(request, 'neworder.html', {'form': form})
 
 
+# Редактирует данные о самом заказе, если ошибочно внесли данные или нужно дополнить
 def EditeOrder(request, id_order):
     model = Orders.objects.get(id_order=id_order)
     form = Order(instance=model)
@@ -48,6 +50,7 @@ def EditeOrder(request, id_order):
     return render(request, 'editeorder.html', {'form': form, 'id_order': id_order, 'model': model})
 
 
+# Удаляет заказ из БД ,без удаления файлов и фото (их удалять вручную)
 def DeleteOrder(request, id_order):
     try:
         order_del = Orders.objects.get(id_order=id_order)
@@ -57,6 +60,7 @@ def DeleteOrder(request, id_order):
         return HttpResponseNotFound('<h2>Запись не найдена</h2>')
 
 
+# Рендерит данные стоимости работ,расходников и общей цены ,а так же форму внесения данных о работах в заказ, в шаблон.
 def JobsOrder(request, id_order):
     cost = cost_job(id_order)
     cost_cons = cost_cons_in_order(id_order)
@@ -91,23 +95,28 @@ def JobsOrder(request, id_order):
                                               'cost_cons': cost_cons, 'all_price': all_price})
 
 
+# Рендерит в шаблон таблицы цен, данные о заказе, форму внесения данных о расходниках
 def EditeConsumers(request, id_jobs, order_id):
-    cost_con = cost_cons(id_jobs)
+    cost_con = cost_cons(id_jobs)   # Импорт функции cost_cons() из utils c переменной id_jobs
 
-    order = Orders.objects.get(id_order=order_id)
-    job_order = Jobs.objects.get(id_jobs=id_jobs)
-    consum = ConsumTable(Consumers.objects.filter(job_id=id_jobs))
+    order = Orders.objects.get(id_order=order_id)   # Вносит в переменную order все объекта модели Orders по фильтру order_id
+    job_order = Jobs.objects.get(id_jobs=id_jobs)   # ---- такая-же ботва,только с моделью Jobs и переменной id_jobs
 
-    reg_num = order.reg_num
-    brand = order.brand
-    moel = order.model
-    color = order.color
-    owner = order.order_owner
-    phone = order.phone_owner
+
+    consum = ConsumTable(Consumers.objects.filter(job_id=id_jobs)) # Вносит в переменную consum таблицу ConsumTable из tabls с филтром id_jobs
+                                                                   # это нужно для рендеринга формы записи расходников
+
+
+    reg_num = order.reg_num     # вытаскиваем данные по заказу из переменной order для отправки в шаблон и там перебираем
+    brand = order.brand         # ---------------------------------------------------------------------------------------
+    moel = order.model          # ---------------------------------------------------------------------------------------
+    color = order.color         # ---------------------------------------------------------------------------------------
+    owner = order.order_owner   # ---------------------------------------------------------------------------------------
+    phone = order.phone_owner   # ---------------------------------------------------------------------------------------
 
     context = [reg_num, brand, moel, color, owner, phone]
 
-    consform = Cons
+    consform = Cons                             # для рендеринга формы в шаблоне
     if request.method == 'POST':
         consform = Cons(request.POST)
         if consform.is_valid():
