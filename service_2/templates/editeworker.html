@@ -15,5 +15,15 @@
         <table class="table table-bordered border-primary">
             {% render_table workertable %}
         </table>
+        <div class="container">
+        <table class="table table-bordered border-primary">
+            <tbody>
+            <tr>
+                    <th scope="row" class="table-primary">Предоплата:</th>
+                    <th scope="row" class="table-primary">{{ pay }} руб.</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     </div>
 {% endblock content %}

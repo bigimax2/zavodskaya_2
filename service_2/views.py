@@ -6,7 +6,8 @@ from django.views.generic import TemplateView
 from service_2.forms import Order, JobsForm, Cons, WorkerForm
 from service_2.models import Orders, Jobs, Consumers, Workers
 from service_2.tables import JobTable, ConsumTable, WorkerTable
-from service_2.utils import cost_job, cost_cons, cost_cons_in_order, all_cost
+from service_2.utils import cost_job, cost_cons, cost_cons_in_order, all_cost, prepayment
+
 
 # рендерит шаблон с главной страницей
 def index(request, *args, **kwargs):
@@ -65,6 +66,7 @@ def JobsOrder(request, id_order):
     cost = cost_job(id_order)
     cost_cons = cost_cons_in_order(id_order)
     all_price = all_cost(id_order)
+    pay = prepayment(id_order)
 
 
     joborder = Orders.objects.get(id_order=id_order)
@@ -92,12 +94,13 @@ def JobsOrder(request, id_order):
 
     return render(request, 'jobsedite.html', {'jobform': jobform, 'jobs': jobs, 'id_order': id_order,
                                               'context': context, 'joborder': joborder, 'cost': cost,
-                                              'cost_cons': cost_cons, 'all_price': all_price})
+                                              'cost_cons': cost_cons, 'all_price': all_price, 'pay': pay})
 
 
 # Рендерит в шаблон таблицы цен, данные о заказе, форму внесения данных о расходниках
 def EditeConsumers(request, id_jobs, order_id):
     cost_con = cost_cons(id_jobs)   # Импорт функции cost_cons() из utils c переменной id_jobs
+    pay = prepayment(order_id)
 
     order = Orders.objects.get(id_order=order_id)   # Вносит в переменную order все объекта модели Orders по фильтру order_id
     job_order = Jobs.objects.get(id_jobs=id_jobs)   # ---- такая-же ботва,только с моделью Jobs и переменной id_jobs
@@ -128,7 +131,7 @@ def EditeConsumers(request, id_jobs, order_id):
 
     return render(request, 'editeconsumers.html', {'consform': consform, 'consum': consum, 'id_jobs': id_jobs,
                                                    'order_id': order_id, 'job_order': job_order, 'context': context,
-                                                   'cost_con': cost_con})
+                                                   'cost_con': cost_con, 'pay': pay})
 
 
 # рендерит вход/выход
@@ -153,6 +156,7 @@ def WorkerCreate(request, id_jobs, order_id):
 
     worker = Jobs.objects.get(id_jobs=id_jobs)
     workertable = WorkerTable(Workers.objects.filter(job_id=worker))
+    pay = prepayment(order_id)
 
     workform = WorkerForm
     if request.method == 'POST':
@@ -163,4 +167,4 @@ def WorkerCreate(request, id_jobs, order_id):
             post.save()
             return redirect('editeworker', id_jobs, order_id)
     return render(request, 'editeworker.html', {'workform': workform, 'workertable': workertable,
-                                                'order_id': order_id})
+                                                'order_id': order_id, 'pay': pay})

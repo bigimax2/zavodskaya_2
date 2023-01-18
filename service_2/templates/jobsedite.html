@@ -36,8 +36,12 @@
     {% render_table jobs %}
     </div>
 </div>
-    <p><a type="button" class="btn btn-warning btn-sm" style="padding-left: 20px; margin-left: 25px; width: 150px"
-    href="{% url 'allorders' %}">Все заказы</a></p>
+    <div class="container">
+
+        <p><a type="button" class="btn btn-warning btn-sm" style="width: 150px; height: 35px; text-align: center; "
+              href="{% url 'allorders' %}">Все заказы</a></p>
+
+    </div>
     <div class="container">
         <table class="table table-bordered border-primary">
             <tbody>
@@ -52,6 +56,10 @@
                 <tr>
                     <th scope="row" class="table-danger">Общая стоимость заказа:</th>
                     <th scope="row" class="table-danger">{{ all_price }} руб.</th>
+                </tr>
+                <tr>
+                    <th scope="row" class="table-primary">Предоплата:</th>
+                    <th scope="row" class="table-primary">{{ pay }} руб.</th>
                 </tr>
             </tbody>
         </table>

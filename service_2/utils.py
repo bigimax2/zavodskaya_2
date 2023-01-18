@@ -1,6 +1,6 @@
 # Данные функции созданы только для расчёта стоимости работ, расходников и общей цены заказа
 
-from service_2.models import Jobs, Consumers
+from service_2.models import Jobs, Consumers, Orders
 
 
 def cost_job(id_order):
@@ -39,3 +39,13 @@ def all_cost(id_order):
 
     all_price = (job + cons)
     return all_price
+
+
+def prepayment(id_order):
+    prepay = Orders.objects.filter(id_order=id_order).values_list('prepayment', flat=True)
+    c = []
+    y = 0
+    for a in prepay:
+        c.append(a)
+    y += sum(c)
+    return y

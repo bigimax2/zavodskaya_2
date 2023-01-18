@@ -7,7 +7,7 @@ from nested_inline.admin import NestedTabularInline, NestedStackedInline, Nested
 from .models import *
 
 
-class WorkerInLine(NestedStackedInline):
+class WorkerInLine(NestedTabularInline):
     model = Workers
     extra = 0
     fk_name = 'job'
@@ -23,7 +23,7 @@ class JobsInLine(NestedStackedInline):
     model = Jobs
     extra = 0
     fk_name = 'order'
-    inlines = [ConsumersInLine]
+    inlines = [ConsumersInLine, WorkerInLine]
 
 
 class OrdersAdmin(NestedModelAdmin):
