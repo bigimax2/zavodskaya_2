@@ -3,9 +3,9 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
-from service_2.forms import Order, JobsForm, Cons
-from service_2.models import Orders, Jobs, Consumers
-from service_2.tables import JobTable, ConsumTable
+from service_2.forms import Order, JobsForm, Cons, WorkerForm
+from service_2.models import Orders, Jobs, Consumers, Workers
+from service_2.tables import JobTable, ConsumTable, WorkerTable
 from service_2.utils import cost_job, cost_cons, cost_cons_in_order, all_cost
 
 # рендерит шаблон с главной страницей
@@ -147,3 +147,20 @@ class LoginView(TemplateView):
             else:
                 context['error'] = 'Invalid username or password'
         return render(request, self.template_name, context)
+
+
+def WorkerCreate(request, id_jobs, order_id):
+
+    worker = Jobs.objects.get(id_jobs=id_jobs)
+    workertable = WorkerTable(Workers.objects.filter(job_id=worker))
+
+    workform = WorkerForm
+    if request.method == 'POST':
+        workform = WorkerForm(request.POST)
+        if workform.is_valid():
+            post = workform.save(commit=False)
+            post.job_id = id_jobs
+            post.save()
+            return redirect('editeworker', id_jobs, order_id)
+    return render(request, 'editeworker.html', {'workform': workform, 'workertable': workertable,
+                                                'order_id': order_id})

@@ -18,6 +18,7 @@ class Orders(models.Model):
     model = models.CharField(max_length=20, blank=True, null=True, verbose_name='модель')
     vin = models.CharField(max_length=20, blank=True, null=True, verbose_name='VIN номер')
     status = models.CharField(choices=STATUS, max_length=20, default='active', verbose_name='Статус заказа')
+    prepayment = models.IntegerField(blank=True, null=True, verbose_name='Предоплата')
 
     class Meta:
         verbose_name = 'Заказы'
@@ -53,7 +54,7 @@ class Consumers(models.Model):
     consumers_price = models.IntegerField(null=True, blank=True, verbose_name='цена')
     consumers_quantity = models.IntegerField(null=True, blank=True, verbose_name='колл-во.')
     job = models.ForeignKey(Jobs, null=True, on_delete=models.CASCADE, verbose_name='выбрать вид работ')
-    order = models.ForeignKey(Orders, null=True, on_delete=models.CASCADE, verbose_name='')
+    order = models.ForeignKey(Orders, null=True, on_delete=models.CASCADE, verbose_name='Заказ')
 
     class Meta:
         verbose_name = 'Расходники'
@@ -61,3 +62,18 @@ class Consumers(models.Model):
 
     def __str__(self):
         return str(self.consumers_name)
+
+
+class Workers(models.Model):
+    id_work = models.AutoField(primary_key=True, blank=True)
+    worker = models.CharField(max_length=20, blank=True, null=True, verbose_name='Исполнитель')
+    payment = models.IntegerField(null=True, blank=True, verbose_name='Оплата')
+    date_worker_job = models.DateField(auto_now_add=True, null=True, blank=True, verbose_name='Дата исполнения')
+    job = models.ForeignKey(Jobs,null=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Исполнитель'
+        verbose_name_plural = 'Исполнители'
+
+    def __str__(self):
+        return str(self.worker)

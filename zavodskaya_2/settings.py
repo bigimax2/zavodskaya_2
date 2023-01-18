@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-nc^6^!rr4vhyy@s%$$)&ps_eclj6%@_wpi-r0ld*35r=%yt%lv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',        # Необходимые библиотеки для работы приложения
+    # Необходимые библиотеки для работы приложения
     'service_2',            # ----------------------------------------------------------------
     'crispy_forms',         # ----------------------------------------------------------------
     'django_tables2',       # ----------------------------------------------------------------
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
 ]
 
 ROOT_URLCONF = 'zavodskaya_2.urls'
@@ -130,10 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'media'                  # Настройка для папки media
 MEDIA_URL = '/media/'                            # ----------------
-
-INTERNAL_IPS = [                           # Настройка разрешения запросов от сервера с расположенным на нем приложением
-    '127.0.0.1',                           # ----------------------------------------------------------------
-]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'        # Настройка библиотеки CRISPY на работу с bootstrap4
 

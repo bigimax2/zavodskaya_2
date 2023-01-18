@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 
-from service_2.models import Orders, Jobs, Consumers
+from service_2.models import Orders, Jobs, Consumers, Workers
 
 
 class AllOrders(ModelForm):
@@ -26,3 +26,9 @@ class Cons(forms.ModelForm):
     class Meta:
         model = Consumers
         exclude = ['job', 'order']
+
+
+class WorkerForm(forms.ModelForm):
+    class Meta:
+        model = Workers
+        exclude = ['job']

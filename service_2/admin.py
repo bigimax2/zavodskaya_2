@@ -7,6 +7,12 @@ from nested_inline.admin import NestedTabularInline, NestedStackedInline, Nested
 from .models import *
 
 
+class WorkerInLine(NestedStackedInline):
+    model = Workers
+    extra = 0
+    fk_name = 'job'
+
+
 class ConsumersInLine(NestedTabularInline):
     model = Consumers
     extra = 0

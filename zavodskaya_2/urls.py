@@ -36,12 +36,6 @@ urlpatterns = [
 # Доп настройка для отображения статики для админки и сайта при разворачивании на хостинге при отсутствии доступа
 # к настройке NGINX.
 if settings.DEBUG:
-    import debug_toolbar
-
-    urlpatterns = [
-                      path('__debug__/', include(debug_toolbar.urls)),
-                  ] + urlpatterns
-
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 else:
