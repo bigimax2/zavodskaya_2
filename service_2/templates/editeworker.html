@@ -3,6 +3,11 @@
 
 {% block content %}
     <div class="container">
+        <div class="fs-2" style="font-weight: bold">Вид работ : {{ job_com }}
+            <p>Стомость услуги : {{ job_price }}</p>
+        </div>
+    </div>
+    <div class="container">
     <form method="POST" action="">
         {% csrf_token %}
         {{ workform }}

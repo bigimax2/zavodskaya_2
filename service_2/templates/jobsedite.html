@@ -3,10 +3,10 @@
 {% load crispy_forms_tags %}
 {% load django_tables2 %}
 
-{% block title %}Добавления вида работ к заказу № {{ id_order }}{% endblock title %}
+{% block title %}Добавление вида работ к заказу № {{ id_order }}{% endblock title %}
 {% block content %}
 <div class="container">
-    <span style="font-size: x-large;"><b>Добавления вида работ к заказу № {{ id_order }}</b></span>
+    <span style="font-size: x-large;"><b>Добавление вида работ к заказу № {{ id_order }}</b></span>
     {% for a in context %}
     <li><strong>{{ a }}</strong></li>
     {% endfor %}

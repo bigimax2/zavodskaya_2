@@ -68,11 +68,9 @@ def JobsOrder(request, id_order):
     all_price = all_cost(id_order)
     pay = prepayment(id_order)
 
-
     joborder = Orders.objects.get(id_order=id_order)
     jobs = JobTable(Jobs.objects.filter(order_id=joborder))
 
-    id = joborder.id_order
     reg_num = joborder.reg_num
     color = joborder.color
     comments = joborder.order_comments
@@ -158,6 +156,9 @@ def WorkerCreate(request, id_jobs, order_id):
     workertable = WorkerTable(Workers.objects.filter(job_id=worker))
     pay = prepayment(order_id)
 
+    job_com = worker.jobs_comments
+    job_price = worker.jobs_price
+
     workform = WorkerForm
     if request.method == 'POST':
         workform = WorkerForm(request.POST)
@@ -167,4 +168,5 @@ def WorkerCreate(request, id_jobs, order_id):
             post.save()
             return redirect('editeworker', id_jobs, order_id)
     return render(request, 'editeworker.html', {'workform': workform, 'workertable': workertable,
-                                                'order_id': order_id, 'pay': pay})
+                                                'order_id': order_id, 'pay': pay, 'job_com': job_com,
+                                                'job_price': job_price})
