@@ -65,6 +65,7 @@ class Consumers(models.Model):
 
 
 class Workers(models.Model):
+
     id_work = models.AutoField(primary_key=True, blank=True)
     worker = models.CharField(max_length=20, blank=True, null=True, verbose_name='Исполнитель')
     payment = models.IntegerField(null=True, blank=True, verbose_name='Оплата')

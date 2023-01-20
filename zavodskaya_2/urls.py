@@ -30,6 +30,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('service_2/', include('service_2.urls')),
     path('', RedirectView.as_view(url='/service_2/')),
+    path("select2/", include("django_select2.urls")),
 
 ]
 

@@ -1,5 +1,7 @@
+
 from django.forms import ModelForm
 from django import forms
+from django_select2 import forms as s2forms
 
 from service_2.models import Orders, Jobs, Consumers, Workers
 
@@ -28,7 +30,19 @@ class Cons(forms.ModelForm):
         exclude = ['job', 'order']
 
 
+class WorkWidget(s2forms.ModelSelect2Widget):
+    search_fields = [
+        "worker__contains",
+    ]
+
+
 class WorkerForm(forms.ModelForm):
+
     class Meta:
         model = Workers
-        exclude = ['job']
+        fields = "__all__"
+        widgets = {
+            "worker": WorkWidget.model,
+        }
+
+
