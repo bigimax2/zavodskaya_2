@@ -8,9 +8,9 @@
         </div>
     </div>
     <div class="container">
-    <form method="POST" action="">
+    <form method="POST" action="#">
         {% csrf_token %}
-        {{ workform }}
+        {{workform}}
         <button class="btn btn-success" type="submit" style="padding-left: 10px; margin-left: 100px">Сохранить</button>
     </form>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end text-center">
@@ -31,4 +31,5 @@
         </table>
     </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock content %}

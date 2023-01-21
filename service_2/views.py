@@ -169,4 +169,4 @@ def WorkerCreate(request, id_jobs, order_id):
             return redirect('editeworker', id_jobs, order_id)
     return render(request, 'editeworker.html', {'workform': workform, 'workertable': workertable,
                                                 'order_id': order_id, 'pay': pay, 'job_com': job_com,
-                                                'job_price': job_price})
+                                                'job_price': job_price, })
