@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
+
 from service_2.forms import Order, JobsForm, Cons, WorkerForm
 from service_2.models import Orders, Jobs, Consumers, Workers
 from service_2.tables import JobTable, ConsumTable, WorkerTable
@@ -11,13 +12,13 @@ from service_2.utils import cost_job, cost_cons, cost_cons_in_order, all_cost, p
 
 # рендерит шаблон с главной страницей
 def index(request, *args, **kwargs):
-    return render(request, 'index.html')
+    return render(request, 'service_2/index.html')
 
 
 # рендерит список всех заказов
 def all_orders(request, *args, **kwargs):
     all = Orders.objects.all()
-    return render(request, 'allorders.html', {'all': all})
+    return render(request, 'service_2/allorders.html', {'all': all})
 
 #  рендерит форму нового заказа
 def NewOrder(request):
@@ -31,7 +32,7 @@ def NewOrder(request):
                 form.add_error(None, 'Ошибка заполнения')
     else:
         form = Order()
-    return render(request, 'neworder.html', {'form': form})
+    return render(request, 'service_2/neworder.html', {'form': form})
 
 
 # Редактирует данные о самом заказе, если ошибочно внесли данные или нужно дополнить
@@ -48,7 +49,7 @@ def EditeOrder(request, id_order):
         else:
             return HttpResponse('НЕ получилось')
 
-    return render(request, 'editeorder.html', {'form': form, 'id_order': id_order, 'model': model})
+    return render(request, 'service_2/editeorder.html', {'form': form, 'id_order': id_order, 'model': model})
 
 
 # Удаляет заказ из БД ,без удаления файлов и фото (их удалять вручную)
@@ -90,7 +91,7 @@ def JobsOrder(request, id_order):
 
             return redirect('jobsedite', id_order=id_order)
 
-    return render(request, 'jobsedite.html', {'jobform': jobform, 'jobs': jobs, 'id_order': id_order,
+    return render(request, 'service_2/jobsedite.html', {'jobform': jobform, 'jobs': jobs, 'id_order': id_order,
                                               'context': context, 'joborder': joborder, 'cost': cost,
                                               'cost_cons': cost_cons, 'all_price': all_price, 'pay': pay})
 
@@ -127,7 +128,7 @@ def EditeConsumers(request, id_jobs, order_id):
             post.save()
             return redirect('jobsediteconsumers', id_jobs=id_jobs, order_id=order_id)
 
-    return render(request, 'editeconsumers.html', {'consform': consform, 'consum': consum, 'id_jobs': id_jobs,
+    return render(request, 'service_2/editeconsumers.html', {'consform': consform, 'consum': consum, 'id_jobs': id_jobs,
                                                    'order_id': order_id, 'job_order': job_order, 'context': context,
                                                    'cost_con': cost_con, 'pay': pay})
 
@@ -167,6 +168,9 @@ def WorkerCreate(request, id_jobs, order_id):
             post.job_id = id_jobs
             post.save()
             return redirect('editeworker', id_jobs, order_id)
-    return render(request, 'editeworker.html', {'workform': workform, 'workertable': workertable,
+    return render(request, 'service_2/editeworker.html', {'workform': workform, 'workertable': workertable,
                                                 'order_id': order_id, 'pay': pay, 'job_com': job_com,
                                                 'job_price': job_price, })
+
+
+

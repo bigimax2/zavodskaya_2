@@ -3,6 +3,7 @@ from django.urls import path
 from service_2 import views
 
 
+
 urlpatterns = [
             path('', views.index, name='index'),
             path('allorders/', views.all_orders, name='allorders'),
@@ -14,4 +15,5 @@ urlpatterns = [
                  name='jobsediteconsumers'),
             path('allorders/jobsedite/<int:order_id>/editeworker/<int:id_jobs>/', views.WorkerCreate,
                  name='editeworker'),
+
 ]

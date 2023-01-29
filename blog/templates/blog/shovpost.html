@@ -1,0 +1,12 @@
+{% extends 'service_2/base.html' %}
+{% load static %}
+{% block title %}{{ post.name_post }}{% endblock title %}
+{%  block content %}
+    <link type="text/css" href="{% static 'blog/css/styles.css' %}" rel="stylesheet"/>
+        {% if post.photo_post %}
+            <p><img  class="img-article-left thumb" src="{{ post.photo_post.url }}" alt=""></p>
+        {% endif %}
+        <p>{{ post.name_post }}</p>
+        <p>{{ post.text_field }}</p>
+
+{% endblock content %}

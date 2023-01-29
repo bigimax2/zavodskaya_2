@@ -29,20 +29,19 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'nested_inline',    # библиотека для изменения админки для отображения моделей проекта
+    'nested_inline',    # библиотека для изменения админки для отображения моделей в apps "service_2"
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Необходимые библиотеки для работы приложения
-    'service_2',            # ----------------------------------------------------------------
+
+    'service_2',            # Необходимые библиотеки для работы приложения
     'crispy_forms',         # ----------------------------------------------------------------
     'django_tables2',       # ----------------------------------------------------------------
 
-
-
+    'blog',                 # ----------------------------------------------------------------
 
 ]
 

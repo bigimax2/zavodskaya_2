@@ -30,7 +30,6 @@ class Cons(forms.ModelForm):
 
 
 class WorkerForm(forms.ModelForm):
-
     class Meta:
         model = Workers
-        exclude = ('job',)
+        fields = ('worker', 'payment')

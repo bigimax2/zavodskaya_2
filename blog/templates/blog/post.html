@@ -1,0 +1,23 @@
+{% extends 'service_2/base.html' %}
+{% block title %}Список статей{% endblock title %}
+{% load static %}
+
+{% block content %}
+    <link type="text/css" href="{% static 'blog/css/styles.css' %}" rel="stylesheet"/>
+    <a href="{% url 'addpost'%}" class="btn btn-primary"></a>
+    
+    {% for p in posts %}
+            {% if p.photo_post %}
+                <p><img class="img-article-left thumb" src="{{ p.photo_post.url }}" alt=""></p>
+            {% endif %}
+        <li><div class="article-panel">
+            <p>{{p.name_post  }}</p>
+            <p>{{ p.text_field|linebreaks|truncatewords:50 }}<a class="btn border-primary"
+                                                                href="{% url 'shovpost' p.pk %}" role="button"></a> </p>
+
+            </div>
+
+        </li>
+
+    {% endfor %}
+{% endblock content %}

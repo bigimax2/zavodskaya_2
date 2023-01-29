@@ -21,6 +21,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
+
 from zavodskaya_2 import settings
 from django.views.static import serve as mediaserve
 
@@ -30,8 +31,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('service_2/', include('service_2.urls')),
     path('', RedirectView.as_view(url='/service_2/')),
-
-]
+    path('blog/', include('blog.urls')),
+    ]
 
 # Доп настройка для отображения статики для админки и сайта при разворачивании на хостинге при отсутствии доступа
 # к настройке NGINX.
