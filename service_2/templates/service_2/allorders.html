@@ -1,41 +1,66 @@
 {% extends 'service_2/base.html' %}
-{% block title %}Все заказы{% endblock title %}
+{% block title %}{% endblock title %}
 
+{% load static %}
 {% block content %}
-    <a class="btn btn-success" style="width: 150px" href="{% url 'neworder' %}">Новый заказ</a>
-    <a class="btn btn-warning" style="width: 150px" href="{% url 'admin:index' %}">Админка</a>
-{% if all.count > 0 %}
-    <h2>Все заказы</h2>
-    <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Бранд</th>
-        <th>Модель</th>
-        <th>Цвет</th>
-        <th>Рег.ном</th>
-        <th>Контакт</th>
-        <th>Телефон</th>
-        <th>Статус</th>
-    </tr>
-    </thead>
-    <tbody>
-        {% for car in all %}
-    <tr>
-        <td>{{ car.brand }}</td>
-        <td>{{ car.model }}</td>
-        <td>{{ car.color }}</td>
-        <td>{{ car.reg_num }}</td>
-        <td>{{ car.order_owner }}</td>
-        <td>{{ car.phone_owner }}</td>
-        <td>{{ car.status }}</td>
-        <td><a href="editeorder/{{ car.id_order }}"><img src="https://img.icons8.com/fluency/38/null/restore-page.png"/></a></td>
-        <td><a href="deleteorder/{{ car.id_order }}"><img src="https://img.icons8.com/fluency/38/null/remove-properties.png"/></a></td>
-        <td><a href="jobsedite/{{ car.id_order }}"><img src="https://img.icons8.com/fluency/38/null/edit-file.png"/></a></td>
-        <td>{{ car.time_create }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-    </table>
-{% endif %}
-
+    <main class="page shopping-cart-page">
+        <section class="clean-block clean-cart dark" style="background: rgb(255,254,254);">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">
+                        <span style="color: rgb(33, 37, 41); background-color: rgb(255,255,255);">Создание\редактирование заказов.</span></h2>
+                    <p></p>
+                    <div class="row m-0 vh-100">
+                        <div class="row m-0 vh-100">
+                            <div class="row m-0">
+                                <div class="col-md-12 p-3">
+                                    <div class="row m-0">
+                                        <a href="{% url 'neworder' %}"  class="btn btn-success" type="button" style="width: initial;">Новый заказ</a>
+                                    </div>
+                                    <div class="table-responsive table-striped">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Марка</th>
+                                                    <th>Модель</th>
+                                                    <th>Цвет</th>
+                                                    <th>Рег. ном</th>
+                                                    <th>Контакт</th>
+                                                    <th>Телефон</th>
+                                                    <th>Статус</th>
+                                                    <th>Действие</th>
+                                                    <th>Дата создания</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="border-width: 3px;border-style: solid;background: rgba(234,183,162,0.56)">
+                                            {% if all is not None %}
+                                            {%  for car in all %}
+                                                <tr style="border-color: #0a53be; border-width: 2px;">
+                                                    <td class="fs-5 fw-bolder">{{ a}}</td>
+                                                    <td class="fs-5 fw-bolder">{{ car.model}}</td>
+                                                    <td class="fs-5 fw-bolder">{{ car.color}}</td>
+                                                    <td class="fs-5 fw-bolder">{{ car.reg_num}}</td>
+                                                    <td class="fs-5 fw-bolder">{{ car.order_owner}}</td>
+                                                    <td class="fs-5 fw-bolder">{{ car.phone_owner}}</td>
+                                                    <td class="fs-5 fw-bolder">{{ car.status}}</td>
+                                                    <td style="margin-top: 8px;margin-bottom: -4px;">
+                                                        <a href="{% url 'editeorder' car.id_order %}"><i class="icon ion-android-settings text-dark" style="font-size: 39px;padding: 5px;"></i></a>
+                                                        <a href="{% url 'deleteorder' car.id_order %}"><i class="icon ion-android-delete text-dark" style="font-size: 43px;padding: 5px;"></i></a>
+                                                        <a href="{% url 'jobsedite' car.id_order %}"><i class="icon-refresh text-dark" style="padding: 5px;font-size: 34px;"></i></a>
+                                                    </td>
+                                                    <td class="fs-5 fw-bolder">{{ car.time_create}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {% endif %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main><!-- Start: Footer Dark -->
 {% endblock content %}

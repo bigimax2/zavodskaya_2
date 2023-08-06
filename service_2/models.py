@@ -8,7 +8,7 @@ class Orders(models.Model):
         ('inactive', 'архив'),
     ]
     id_order = models.AutoField(primary_key=True)
-    reg_num = models.CharField(max_length=12, blank=False, null=True, verbose_name='госномер')
+    reg_num = models.CharField(max_length=12, null=True, verbose_name='госномер')
     color = models.CharField(max_length=10, blank=True, null=True, verbose_name='цвет авто')
     time_create = models.DateField(auto_now_add=True, null=True)
     order_comments = models.CharField(max_length=255, blank=True, null=True, verbose_name='заметки по заказу')
@@ -33,11 +33,11 @@ class Orders(models.Model):
 
 class Jobs(models.Model):
     id_jobs = models.AutoField(primary_key=True, blank=True)
-    jobs_comments = models.CharField(max_length=255, null=True, blank=True, verbose_name='Вид работ:')
+    jobs_comments = models.CharField(max_length=255, null=True, blank=True, verbose_name='Наименование :')
     jobs_price = models.IntegerField(null=True, blank=True,verbose_name='Цена')
     file = models.FileField(blank=True, null=True, upload_to='media/file', verbose_name='Файл')
     image = models.ImageField(blank=True, null=True, upload_to='media/image', verbose_name='Фото')
-    date_job = models.DateField(auto_now_add=True, null=True, blank=True)
+    date_job = models.DateField(auto_now_add=True, null=True, blank=True, verbose_name='Дата')
     order = models.ForeignKey(Orders, null=True, on_delete=models.CASCADE)
 
     class Meta:
@@ -68,7 +68,7 @@ class Workers(models.Model):
 
     id_work = models.AutoField(primary_key=True, blank=True)
     worker = models.CharField(max_length=20, blank=True, null=True, verbose_name='Исполнитель')
-    payment = models.IntegerField(null=True, blank=True, verbose_name='Оплата')
+    payment = models.IntegerField(null=True, blank=True, verbose_name='Стоимость')
     date_worker_job = models.DateField(auto_now_add=True, null=True, blank=True, verbose_name='Дата исполнения')
     job = models.ForeignKey(Jobs,null=True, on_delete=models.CASCADE)
 

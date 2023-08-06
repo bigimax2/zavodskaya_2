@@ -1,67 +1,82 @@
-{% extends 'service_2/base.html' %}
-{% load crispy_forms_filters %}
+ {% extends 'service_2/base.html' %}
+ {% block title %}{% endblock title%}
+{% load crispy_forms_field %}
 {% load crispy_forms_tags %}
 {% load django_tables2 %}
+{% load crispy_forms_filters %}
+{% load static %}
 
-{% block title %}Добавление вида работ к заказу № {{ id_order }}{% endblock title %}
 {% block content %}
-<div class="container">
-    <span style="font-size: x-large;"><b>Добавление вида работ к заказу № {{ id_order }}</b></span>
-    {% for a in context %}
-    <li><strong>{{ a }}</strong></li>
-    {% endfor %}
-    <form method="post" action="" enctype="multipart/form-data"> <!-- ОБЯЗАТЕЛЬНО прописать enctype="multipart/form-data", иначе файлы не отправятся в БД-->
-    {% csrf_token %}
-        <div class="form-row g-3">
-            <div class="form-group  mb-0">
-                {{ jobform.jobs_comments|as_crispy_field }}
-            </div>
-            <div class="form-group col-md-2 mb-0">
-                {{ jobform.jobs_price|as_crispy_field }}
-            </div>
-        </div>
-        <div class="form-row" style="margin-top: 20px">
-            <div class="form-group col-md-3 mb-0">
-                {{ jobform.file|as_crispy_field }}
-            </div>
-            <div class="form-group col-md-3 mb-0" style="margin-top: 10px">
-                {{ jobform.image|as_crispy_field }}
-            </div>
-        </div>
+  <main class="page shopping-cart-page">
+        <section class="clean-block clean-cart dark" style="background: rgb(255,255,255);">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info"><br><span style="color: rgb(33, 37, 41); background-color: rgb(255, 255, 255);">Добавление вида работ к заказу № {{ id_order }}</span><br></h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                </div>
+                <div class="content">
+                    <div class="row g-0" style="border-color: rgba(254,254,254,0);transform: perspective(0px);">
+                        <div class="col-xxl-12">
 
+                                {% for a in context %}
+                                <li>{{ a }}</li>
+                                {% endfor %}
 
-        <button class="btn btn-success" type="submit" style="margin-top: 20px; width: 150px">Сохранить</button>
-    </form>
-    <div class="container">
-    {% render_table jobs %}
-    </div>
-</div>
-    <div class="container">
-
-        <p><a type="button" class="btn btn-warning btn-sm" style="width: 150px; height: 35px; text-align: center; "
-              href="{% url 'allorders' %}">Все заказы</a></p>
-
-    </div>
-    <div class="container">
-        <table class="table table-bordered border-primary">
-            <tbody>
-                <tr>
-                    <th scope="row" class="table-success">Стоимость работ по данным видам:</th>
-                    <th scope="row" class="table-success">{{ cost }} руб.</th>
-                </tr>
-                <tr>
-                    <th scope="row" class="table-warning">Общая стоимость расходников по заказу:</th>
-                    <th scope="row" class="table-warning">{{ cost_cons }} руб.</th>
-                </tr>
-                <tr>
-                    <th scope="row" class="table-danger">Общая стоимость заказа:</th>
-                    <th scope="row" class="table-danger">{{ all_price }} руб.</th>
-                </tr>
-                <tr>
-                    <th scope="row" class="table-primary">Предоплата:</th>
-                    <th scope="row" class="table-primary">{{ pay }} руб.</th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                        </div>
+                    </div>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row g-3">
+                        <div class="form-group mb-0"></div>
+                        {{ jobform.jobs_comments|as_crispy_field }}
+                        <div class="form-group col-md-2 mb-0"></div>
+                        {{ jobform.jobs_price|as_crispy_field }}
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3 mb-0"></div>
+                        {{ jobform.file|as_crispy_field }}
+                        <div class="form-group col-md-3 mb-0"></div>
+                        {{ jobform.image|as_crispy_field }}
+                    </div>
+                    <button class="btn btn-success" type="submit">Отправить</button>
+                </form>
+                <div class="container">
+                    <div class="table-responsive">
+                         {% render_table jobs %}
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <p><a href="{% url 'allorders' %}" class="btn btn-warning" type="button">Все заказы</a></p>
+            </div>
+            <div class="container">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody class="table table-bordered border-primary">
+                            <tr>
+                                <td class="table-success">Стоимост работ по данным видам :</td>
+                                <td class="table-success col-md-2">{{ cost }} руб.</td>
+                            </tr>
+                            <tr>
+                                <td class="table-warning">Общая стоимость расходников по данному заказу :</td>
+                                <td class="table-warning col-md-2">{{ cost_cons }} руб.</td>
+                            </tr>
+                            <tr>
+                                <td class="table-danger">Общая стоимость заказа :</td>
+                                <td class="table-danger col-md-2">{{ all_price }} руб.</td>
+                            </tr>
+                            <tr>
+                                <td class="table-primary">Предоплата :</td>
+                                <td class="table-primary col-md-2">{{ pay }} руб.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main><!-- Start: Footer Dark -->
 {% endblock content %}

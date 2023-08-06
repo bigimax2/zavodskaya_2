@@ -5,40 +5,60 @@
 
 {% block title %}Расходники к виду работ: {{ job_order.jobs_comments }}{% endblock title %}
 {% block content %}
-    <div class="container">
-    <span style="font-size: x-large;"><b>Заказ № {{ order_id }}</b></span>
-    {% for a in context %}
-        <li><strong>{{ a }}</strong></li>
-    {% endfor %}
-        <div class="container">
-            <span style="font-size: x-large; margin-left: -25px"><b>Расходники к виду работ: {{ job_order.jobs_comments }}</b></span>
-        </div>
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ consform }}
-    <button class="btn btn-success" type="submit" style="padding-left: 10px; margin-left: 100px ">Сохранить</button>
-    </form>
-        <div class="container">
-        {% render_table consum %}
-        </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end text-center">
-            <a type="button" class="btn btn-warning" style="width: 150px" href="{% url 'allorders' %}">Все заказы</a>
-            <a type="button" class="btn btn-primary " style="width: 150px" href="{% url 'jobsedite' order_id %}">К видам работ</a>
+    <main class="page shopping-cart-page">
+        <section class="clean-block clean-cart dark" style="background: rgb(255,255,255);">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info"><br><span style="color: rgb(33, 37, 41); background-color: rgb(255, 255, 255);">&nbsp;Расходники к виду работ :</span><br></h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                </div>
+                <div class="content">
+                    <div class="row g-0" style="border-color: rgba(254,254,254,0);transform: perspective(0px);">
+                        <div class="col-xxl-12">
+                            <p style="font-size: x-large"><b>Заказ № {{ order_id }}</b></p>
+                            <ul>
+                                {% for a in context %}
+                                    <li><strong>{{ a }}</strong></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ consform }}
+                    <button class="btn btn-success" type="submit">Отправить</button>
+                </form>
+                <div class="container">
+                    {% render_table consum %}
+                    </div>
             </div>
-    <div class="container">
-        <table class="table table-bordered border-primary">
-            <tbody>
-            <tr>
-                <th scope="row" class="table-success">Общая стоимость расходников по данному виду работ:</th>
-                <th scope="row" class="table-success">{{ cost_con }} руб.</th>
-            </tr>
-            <tr>
-                    <th scope="row" class="table-primary">Предоплата:</th>
-                    <th scope="row" class="table-primary">{{ pay }} руб.</th>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    </div>
+            <div class="container">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end text-center">
+                    <a href="{% url 'allorders' %}" class="btn btn-warning" type="button">Все заказы</a>
+                    <a href="{%  url 'jobsedite' order_id %}" class="btn btn-primary" type="button">Назад</a>
+                </div>
+            </div>
+            <div class="container">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody class="table table-bordered border-primary">
+                            <tr>
+                                <td class="table-success">Общая стоимость расходников по данным видам работ:</td>
+                                <td class="table-primary col-md-2">{{ cost_con }} руб</td>
+                            </tr>
+                            <tr>
+                                <td class="table-primary">Предоплата :</td>
+                                <td class="table-primary col-md-2">{{ pay }} руб</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
 
 {% endblock content %}

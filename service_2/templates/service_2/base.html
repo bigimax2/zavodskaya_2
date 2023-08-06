@@ -1,184 +1,116 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1 , shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300i,400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-
+{% load static %}
+<head>
     <title>{% block title %}{% endblock title %}</title>
-    <style>
-      body {
-      padding: 0;
-      margin: 0;
-      font-family: "Nunito Sans";
-      }
-      .bg-custom-1{
-      background-color: #57606f;
-      }
-      .bg-custom-2{
-      background-color: #2f3542;
-      }
-      h2{
-      color: #fff;
-      margin: 0px;
-      }
-      i{
-      cursor: pointer;
-      }
-      i::before{
-      vertical-align: middle !important;
-      display: block !important;
-      }
-      .nav-link{
-      padding: 15px 25px;
-      color: #fff;
-      font-size: 24px;
-      }
-      .nav-link:hover{
-      color: #fff;
-      background-color: #77b2c7;
-      }
-      .main-toolbar{
-      display: flex;
-      align-items: center;
-      border-left: 1px solid #f1f2f6;
-      padding-left: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="row m-0 vh-100">
-      <div class="col-md-2 col-6 bg-custom-1 p-0" id="navbarToggleExternalContent">
-        <header class="bg-custom-2 p-3 ps-4">
-          <h2>Меню</h2>
-        </header>
-          {% if user.is_authenticated %}
-        <ul class="nav flex-column ">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'index' %}">Главная</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'post' %}">Блог</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Team</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'allorders' %}">Сервис</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact us</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout'%}">Выйти</a>
-          </li>
-            {% else %}
-            <ul class="nav flex-column ">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login'%}">Login</a>
-                </li>
-            </ul>
-        </ul>
-          {% endif %}
-      </div>
-      <div class="col-md-10 p-0" id ="uiNavbar">
-        <div class="main-toolbar bg-custom-2 p-3">
-          <i class="bi bi-justify fs-1 text-white" id="demo" onclick="closeNav()"></i>
-          <h2 class="m-0 pl-4 ms-2">Заводская</h2>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href={% static "/service_2/bootstrap/css/bootstrap.min.css" %}>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
+    <link rel="stylesheet" href={% static "/service_2/css/styles.min.css" %}>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
+    <link rel="stylesheet" href={% static "/service_2/css/vanilla-zoom.min.css"%}>
+
+</head>
+<body>
+<nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar" style="height: 90px;">
+        <div class="container">
+            <img src="{% static "/service_2/img/autoexpert.jpg" %}" alt="" style="width: 68px;border-radius: 40px;">
+            <a class="navbar-brand logo" href="{% url 'index' %}" style="font-size: 18px;transform: translate(13px);">
+                <br>
+                <span style="color: rgb(0, 0, 0);">СТО Автоэксперт</span>
+                <br>
+                <br>
+            </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+                <span class="visually-hidden">Toggle navigation</span>
+                <span class="navbar-toggler-icon" style="text-shadow: rgb(0,0,0);">
+                </span>
+            </button>
+            <div class="collapse navbar-collapse text-uppercase" id="navcol-1">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}" style="opacity: 0.42;">главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="slider.html">наши работы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}" style="text-shadow: 1px 1px rgb(255,255,255);">вход</a></li>
+                    {% if user.is_superuser %}
+                    <li class="nav-item"><a class="nav-link link-danger" href="{% url 'allorders' %}" style="text-shadow: 1px 1px rgb(255,255,255);">сервис</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated%}
+                    <li class="nav-item"><a class="nav-link link-danger" href="{% url 'logout' %}" style="text-shadow: 1px 1px rgb(255,255,255);">выход</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link active" data-bs-target="#modal-1" data-bs-toggle="modal" href="#" style="font-weight: bold;">обратный звонок</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="row m-0">
-          <div class="col-md-12 p-3">
-              {% block content %}{% endblock content %}
-          </div>
+    </nav>
+{% block content %}
+
+{% endblock content %}
+
+    <footer class="page-footer dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5>С чего начать:</h5>
+                    <ul>
+                        <li><a href="{% url 'index' %}">Главная</a></li>
+                        <li><a href="{% url 'login' %}">Вход</a></li>
+                        <li><a href="">Наши работы</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5></h5>
+                </div>
+                <div class="col-sm-3">
+                    <h5>О нас</h5>
+                    <ul>
+                        <li><a href="#">Инфо</a></li>
+                        <li><a href="">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div><!-- Start: Social Icons -->
+        <div class="clean-block add-on social-icons">
+            <div class="icons">
+                <a href="#"><i class="icon-social-vkontakte"></i></a>
+                <a href="#"><i class="icon-social-skype"></i></a>
+            </div>
+        </div><!-- End: Social Icons -->
+        <div class="footer-copyright">
+            <p>© 2023 Автоэксперт</p>
         </div>
-      </div>
+    </footer><!-- End: Footer Dark -->
+    <div class="modal fade visible" role="dialog" tabindex="-1" id="modal-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="border-radius: 20px 20px 0 0;">
+                    <h4 class="modal-title d-xxl-flex" style="margin-right: -1px;margin-left: 43px;font-family: Montserrat, sans-serif;">Напишите нам и вам наберут</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <!-- Start: Success Example -->
+                        <div class="mb-3" style="position: relative;">
+                            <input class="form-control" type="text" id="name-2" name="phone" placeholder="телефон"></div><!-- End: Success Example -->
+                        <!-- Start: Error Example -->
+                        <div class="mb-3">
+                            <input class="form-control" type="email" id="email-2" name="name" placeholder="как к вам обращаться"></div><!-- End: Error Example -->
+                        <div style="transform-origin: bottom;"><button class="btn btn-primary d-block w-100" type="submit" style="position: relative;margin-left: 2px;margin-right: -30px;">набрать мне</button></div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-radius: 0 0 20px 20px;"></div>
+            </div>
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
-    <script>
-      function openNav() {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+    <script src="/service_2/js/script.min.js"></script>
+    <script src="/service_2/js/theme.js"></script>
+    <script src="/service_2/js/vanilla-zoom.js"></script>
+    <script id="bs-live-reload" data-sseport="52845" data-lastchange="1690918095237" src="/service_2/js/livereload.js"></script>
+</body>
 
-            var myNav = document.getElementById("navbarToggleExternalContent");
-
-            myNav.style.display = myNav.style.display === 'none' ? '' : 'none';
-
-            document.getElementById("demo").onclick = closeNav;
-
-            var element = document.getElementById("uiNavbar");
-
-            var x = window.matchMedia("(max-width: 700px)");
-
-            if (x.matches) {
-
-                  element.classList.remove("col-12");
-
-                  element.classList.remove("col-md-12");
-
-                  element.classList.add("col-6");
-
-                  element.classList.add("col-6");
-
-
-            } else{
-
-                  element.classList.remove("col-md-12");
-
-                  element.classList.remove("col-12");
-
-                  element.classList.add("col-md-10");
-
-                  element.classList.add("col-6");
-
-
-            }
-
-      }
-
-      function closeNav() {
-
-            document.getElementById("navbarToggleExternalContent").style.display = "none";
-
-            document.getElementById("demo").onclick = openNav;
-
-            var element = document.getElementById("uiNavbar");
-
-            var x = window.matchMedia("(max-width: 700px)");
-
-            if (x.matches) {
-
-                  element.classList.remove("col-md-10");
-
-                  element.classList.remove("col-6");
-
-                  element.classList.add("col-12");
-
-                  element.classList.add("col-md-12");
-
-
-            } else{
-
-                  element.classList.remove("col-sm-10");
-
-                  element.classList.remove("col-md-10");
-
-                  element.classList.add("col-md-12");
-
-                  element.classList.add("col-12");
-
-            }
-
-
-      }
-
-    </script>
-  </body>
 </html>

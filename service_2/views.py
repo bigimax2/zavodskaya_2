@@ -1,6 +1,7 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.views.generic import TemplateView
 
 
@@ -62,7 +63,7 @@ def DeleteOrder(request, id_order):
         return HttpResponseNotFound('<h2>Запись не найдена</h2>')
 
 
-# Рендерит данные стоимости работ,расходников и общей цены ,а так же форму внесения данных о работах в заказ, в шаблон.
+# Рендерит данные стоимости работ, расходников и общей цены ,а так же форму внесения данных о работах в заказ, в шаблон.
 def JobsOrder(request, id_order):
     cost = cost_job(id_order)
     cost_cons = cost_cons_in_order(id_order)
@@ -71,6 +72,8 @@ def JobsOrder(request, id_order):
 
     joborder = Orders.objects.get(id_order=id_order)
     jobs = JobTable(Jobs.objects.filter(order_id=joborder))
+
+    tablejob = Jobs.objects.filter(order_id=joborder)
 
     reg_num = joborder.reg_num
     color = joborder.color
@@ -93,7 +96,7 @@ def JobsOrder(request, id_order):
 
     return render(request, 'service_2/jobsedite.html', {'jobform': jobform, 'jobs': jobs, 'id_order': id_order,
                                               'context': context, 'joborder': joborder, 'cost': cost,
-                                              'cost_cons': cost_cons, 'all_price': all_price, 'pay': pay})
+                                              'cost_cons': cost_cons, 'all_price': all_price, 'pay': pay, 'tablejob': tablejob})
 
 
 # Рендерит в шаблон таблицы цен, данные о заказе, форму внесения данных о расходниках
@@ -101,7 +104,7 @@ def EditeConsumers(request, id_jobs, order_id):
     cost_con = cost_cons(id_jobs)   # Импорт функции cost_cons() из utils c переменной id_jobs
     pay = prepayment(order_id)
 
-    order = Orders.objects.get(id_order=order_id)   # Вносит в переменную order все объекта модели Orders по фильтру order_id
+    order = Orders.objects.get(id_order=order_id)   # Вносит в переменную order объект модели Orders по фильтру order_id
     job_order = Jobs.objects.get(id_jobs=id_jobs)   # ---- такая-же ботва,только с моделью Jobs и переменной id_jobs
 
 
@@ -167,10 +170,12 @@ def WorkerCreate(request, id_jobs, order_id):
             post = workform.save(commit=False)
             post.job_id = id_jobs
             post.save()
-            return redirect('editeworker', id_jobs, order_id)
+            return redirect('editeworker', order_id, id_jobs,)
     return render(request, 'service_2/editeworker.html', {'workform': workform, 'workertable': workertable,
                                                 'order_id': order_id, 'pay': pay, 'job_com': job_com,
                                                 'job_price': job_price, })
 
 
-
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('login'))

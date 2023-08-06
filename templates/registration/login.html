@@ -1,3 +1,6 @@
+{% extends 'service_2/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
 {% block content %}
 
 {% if form.errors %}
@@ -13,26 +16,34 @@
   {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
+<main class="page login-page">
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Вход</h2>
+                    {% if form.errors %}
 
-<tr>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</tr>
+                    <p>{{ form.errors }}</p>
 
-<tr>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</tr>
-</table>
+                    {% endif %}
+                </div>
+                <form method="post" action="">
+                    {% csrf_token %}
 
-<input type="submit" value="вход" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
-<p><a href="{% url 'index' %}">Вернуться на главную</a> </p>
-{# Assumes you setup the password_reset view in your URLconf #}
-{# <p><a href="{% url 'password_reset' %}">Lost password?</a></p> #}
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Логин :</label>
+                        <input type="text" class="form-control item" id="name" name="username">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="password">Пароль :</label>
+                        <input type="password" class="form-control item" id="password" name="password">
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Далее</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
 
 {% endblock %}

@@ -1,11 +1,60 @@
 {% extends 'service_2/base.html' %}
 {% block title %}Редактирование заказа рег.ном  {{ model.reg_num }}{% endblock title %}
 {% block content %}
-   <form method="POST" novalidate action="">
-    {% csrf_token %}
-        <table>
-        {{ form }}
-        </table>
-        <input type="submit" name="submit" value="Обновить">
-   </form>
+   <main class="page contact-us-page">
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Редактирование данных об авто.</h2>
+                    <p>форма для внесения изменений</p>
+                </div>
+                <form method="post" novalidate action="">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label" >Госномер :</label>
+                        <input class="form-control" type="text" id="reg_num" style="color: red" name="reg_num" value="{{ form.instance.reg_num }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Цвет авто :</label>
+                        <input class="form-control" type="text" id="color" style="color: red" name="color" value="{{ form.instance.color }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Заметки по авто :</label>
+                        <input class="form-control" type="text" id="order_comments" style="color: red" name="order_comments" value="{{ form.instance.order_comments }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Контакт :</label>
+                        <input class="form-control" type="text" id="order_owner" style="color: red" name="order_owner" value="{{ form.instance.order_owner }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Телефон для связи :</label>
+                        <input class="form-control" type="text" id="phone_owner" style="color: red" name="phone_owner" value="{{ form.instance.phone_owner }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Марка :</label>
+                        <input class="form-control" type="text" id="brand" style="color: red" name="brand" value="{{ form.instance.brand }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Модель :</label>
+                        <input class="form-control" type="text" id="model" style="color: red" name="model" value="{{ form.instance.model }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >VIN номер :</label>
+                        <input class="form-control" type="text" id="vin" style="color: red" name="vin" value="{{ form.instance.vin }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Статус заказа :</label>
+                        <select class="form-select" id="select" name="status"  style="color: red">
+                            <option value="active" >активный</option>
+                            <option value="inactive">архив</option>
+                        </select></div>
+                    <div class="mb-3">
+                        <label class="form-label" >Предоплата :</label>
+                        <input class="form-control" type="number" id="prepayment" name="prepayment" style="color: red" value="{{ form.instance.prepayment }}">
+                    </div>
+                    <div class="mb-3"><button class="btn btn-success" type="submit">Отправить</button></div>
+                </form>
+            </div>
+        </section>
+    </main>
 {% endblock content %}
